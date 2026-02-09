@@ -1,13 +1,13 @@
 name: Terraform Plan
 
 on:
-  push:
-    branches:
-      - '**'
-      - '!main'
   pull_request:
     branches:
       - main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   terraform-plan:
@@ -55,7 +55,6 @@ jobs:
           retention-days: 5
 
       - name: Comment PR with Plan
-        if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           script: |
