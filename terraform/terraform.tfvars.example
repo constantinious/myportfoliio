@@ -1,0 +1,18 @@
+# Terraform variables for customization
+
+# AWS Region - change this if you prefer a different region
+aws_region = "us-east-1"
+
+# Environment name
+environment = "prod"
+
+# S3 bucket name - must be globally unique
+# Change this to your preferred bucket name
+bucket_name = "konstantinos-gkekas-portfolio"
+
+# Enable/disable CloudFront
+enable_cloudfront = true
+
+# Domain name - this will be used to create Route53 A record
+# Make sure you have a hosted zone for this domain in Route53
+domain_name = "portfolio.condevelop.net"
