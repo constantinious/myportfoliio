@@ -13,5 +13,5 @@ resource "aws_route53_record" "website" {
 
 # Data source to get the hosted zone ID
 data "aws_route53_zone" "main" {
-  name = "condevelop.net"
+  name = var.hosted_zone_name
 }

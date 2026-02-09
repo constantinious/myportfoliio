@@ -11,9 +11,15 @@ variable "environment" {
 }
 
 variable "domain_name" {
-  description = "Domain name for the website (optional, required for SSL certificate)"
+  description = "Domain name for the website (optional, required for Route53 record)"
   type        = string
   default     = ""
+}
+
+variable "hosted_zone_name" {
+  description = "Route53 hosted zone name"
+  type        = string
+  default     = "condevelop.net"
 }
 
 variable "bucket_name" {
