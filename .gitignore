@@ -10,3 +10,4 @@ tfplan
 *~
 .env
 .env.local
+.github/workflows/artifacts/
