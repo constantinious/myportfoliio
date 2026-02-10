@@ -46,16 +46,19 @@ jobs:
 
       - name: Get Outputs
         working-directory: ./terraform
-        id: outputs
+        id: tf_outputs
         run: |
-          echo "s3_bucket=$(terraform output -raw s3_bucket_name)" >> $GITHUB_OUTPUT
-          echo "cloudfront_domain=$(terraform output -raw cloudfront_domain_name)" >> $GITHUB_OUTPUT
-          echo "route53_fqdn=$(terraform output -raw route53_record_fqdn)" >> $GITHUB_OUTPUT
+          s3_bucket=$(terraform output -raw s3_bucket_name)
+          cloudfront_domain=$(terraform output -raw cloudfront_domain_name)
+          route53_fqdn=$(terraform output -raw route53_record_fqdn)
+          echo "s3_bucket=$s3_bucket" >> $GITHUB_OUTPUT
+          echo "cloudfront_domain=$cloudfront_domain" >> $GITHUB_OUTPUT
+          echo "route53_fqdn=$route53_fqdn" >> $GITHUB_OUTPUT
 
       - name: Deploy Website Files to S3
         working-directory: ./
         run: |
-          aws s3 sync . s3://${{ steps.outputs.outputs.s3_bucket }}/ \
+          aws s3 sync . s3://${{ steps.tf_outputs.outputs.s3_bucket }}/ \
             --exclude "terraform/*" \
             --exclude ".git/*" \
             --exclude ".github/*" \
@@ -81,10 +84,9 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('fs');
-            const s3_bucket = '${{ steps.outputs.outputs.s3_bucket }}';
-            const cloudfront_domain = '${{ steps.outputs.outputs.cloudfront_domain }}';
-            const route53_fqdn = '${{ steps.outputs.outputs.route53_fqdn }}';
+            const s3_bucket = '${{ steps.tf_outputs.outputs.s3_bucket }}';
+            const cloudfront_domain = '${{ steps.tf_outputs.outputs.cloudfront_domain }}';
+            const route53_fqdn = '${{ steps.tf_outputs.outputs.route53_fqdn }}';
             
             const comment = `## ✅ Deployment Successful
             
