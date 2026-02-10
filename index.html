@@ -3,162 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AWS & Terraform specialist for growing teams. Helping companies build production-grade infrastructure.">
-    <title>Konstantinos Gkekas - AWS & Terraform Specialist</title>
+    <title>Konstantinos Gkekas - Full Stack Developer & Cloud Engineer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="container">
-            <div class="logo">Konstantinos Gkekas</div>
-            <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#problems">Problems</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#how-i-work">How I Work</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">KG</a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#work" class="nav-link">Work</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <div class="container">
-            <h1>AWS & Terraform specialist for growing teams</h1>
-            <p class="subheadline">I help small and mid‑size companies get production‑grade AWS infrastructure with Terraform and modern CI/CD – without hiring a full‑time DevOps team.</p>
-            <a href="#contact" class="cta-button">Request a free 30‑minute consultation</a>
-            <p class="availability">Availability: part‑time/side engagement, remote from Prague. ✅ CI/CD Pipeline Active</p>
-        </div>
-    </section>
-
-    <!-- Problems Section -->
-    <section id="problems" class="problems">
-        <div class="container">
-            <h2>Problems you solve</h2>
-            <p class="intro-text">Running AWS without proper infrastructure as code and automation creates risk and slows teams down. I work with engineering teams who:</p>
-            <div class="problems-list">
-                <div class="problem-item">
-                    <h3>Manual AWS Management</h3>
-                    <p>Manage AWS resources manually in the console and fear breaking production.</p>
-                </div>
-                <div class="problem-item">
-                    <h3>Flaky Pipelines</h3>
-                    <p>Have ad‑hoc pipelines that are slow, flaky, or tightly coupled to one person.</p>
-                </div>
-                <div class="problem-item">
-                    <h3>Lack Visibility</h3>
-                    <p>Lack visibility into their environments, costs, and operational risks.</p>
-                </div>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="hero-greeting">Hello! I am</p>
+                <h1 class="hero-title">Konstantinos Gkekas</h1>
+                <p class="hero-subtitle">A Full Stack Developer & Cloud Engineer</p>
+                <p class="hero-description">I build scalable cloud infrastructure with Terraform and create modern web experiences with clean code. Passionate about DevOps, AWS, and automated deployments.</p>
+                <a href="#contact" class="cta-button">Get in Touch →</a>
             </div>
-            <p class="closing-text"><strong>My goal:</strong> Give you a stable, well‑understood platform so developers can ship faster with less stress.</p>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2>Services</h2>
-            
-            <div class="service-card">
-                <h3>1. Terraform migration for AWS</h3>
-                <p>Turn your manually created AWS infrastructure into clean, maintainable Terraform.</p>
-                <ul>
-                    <li>Inventory your existing AWS resources and define a target architecture.</li>
-                    <li>Import and refactor resources into Terraform with remote state and workspaces.</li>
-                    <li>Integrate Terraform with Git (GitLab/GitHub) and basic CI for plans & applies.</li>
-                </ul>
-                <p><em>Typical scope: 2–4 weeks part‑time depending on size and complexity.</em></p>
-            </div>
-
-            <div class="service-card">
-                <h3>2. AWS infrastructure review & optimisation</h3>
-                <p>Independent review of your current AWS setup with concrete, prioritized improvements.</p>
-                <ul>
-                    <li>Assess networking, security, scaling, backup, and cost setup.</li>
-                    <li>Review IAM, encryption, and basic compliance/hardening.</li>
-                    <li>Deliver a written report plus a 60‑minute call to walk through findings and next steps.</li>
-                </ul>
-                <p><em>Ideal if you already run in AWS but lack confidence in reliability or costs.</em></p>
-            </div>
-
-            <div class="service-card">
-                <h3>3. CI/CD pipeline setup for AWS & Terraform</h3>
-                <p>Design or improve your pipelines so changes are safe, auditable, and fast.</p>
-                <ul>
-                    <li>GitLab (or GitHub) pipelines for application and infrastructure changes.</li>
-                    <li>Automated Terraform plans on every merge request, with approvals and policies.</li>
-                    <li>Safe promotion between environments (dev/stage/prod) and clear rollback paths.</li>
-                </ul>
-                <p><em>Outcome: developers trust the pipelines, and infra changes stop being "scary".</em></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- How I Work Section -->
-    <section id="how-i-work" class="how-i-work">
-        <div class="container">
-            <h2>How I Work</h2>
-            <div class="work-details">
-                <div class="work-item">
-                    <h3>Remote‑first</h3>
-                    <p>I collaborate via video calls, chat, and Git, and can join your stand‑ups if needed.</p>
-                </div>
-                <div class="work-item">
-                    <h3>Incremental</h3>
-                    <p>I start with a short assessment, then prioritize the highest‑impact improvements.</p>
-                </div>
-                <div class="work-item">
-                    <h3>Transparent</h3>
-                    <p>Everything is tracked in Git and tickets, so you always see progress and decisions.</p>
-                </div>
-            </div>
-
-            <div class="engagement">
-                <h3>Engagement model:</h3>
-                <ul>
-                    <li><strong>Hourly rate:</strong> 45–50 € per hour, depending on scope and commitment.</li>
-                    <li><strong>Fixed‑price packages available</strong> after an initial conversation.</li>
-                </ul>
+            <div class="hero-image">
+                <div class="image-placeholder">KG</div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about">
-        <div class="container">
-            <h2>About me</h2>
-            <p>I'm Konstantinos, a Senior Cloud Operations / DevOps Engineer based in Prague. I design, build, and operate AWS infrastructure using Terraform, manage container workloads, and maintain CI/CD pipelines with GitLab in production environments.</p>
+        <div class="about-container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>I'm a Full Stack Developer with 3+ years of experience in building and deploying cloud infrastructure. Currently exploring AWS, Terraform, and CI/CD automation.</p>
+                <p>Currently working on building scalable infrastructure solutions and exploring new technologies in cloud computing and DevOps.</p>
+                <p>I'm passionate about creating meaningful digital products and improving developer experience through automation and best practices.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Experience Section -->
+    <section id="work" class="work">
+        <div class="work-container">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="work-grid">
+                <div class="work-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%231a2047' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' fill='%2300d4ff' font-size='20' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3EAWS%3C/text%3E%3C/svg%3E" alt="AWS Cloud Solutions">
+                    <h3>Cloud Infrastructure</h3>
+                    <p>Designing and deploying scalable AWS infrastructure with S3, CloudFront, Route53, and ACM certificates.</p>
+                    <a href="#projects">LEARN MORE →</a>
+                </div>
+                <div class="work-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%231a2047' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' fill='%2300d4ff' font-size='18' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3ETerraform%3C/text%3E%3C/svg%3E" alt="Infrastructure as Code">
+                    <h3>Infrastructure as Code</h3>
+                    <p>Writing modular, reusable Terraform configurations for AWS resources with remote state management and automation.</p>
+                    <a href="#projects">LEARN MORE →</a>
+                </div>
+                <div class="work-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%231a2047' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' fill='%2300d4ff' font-size='20' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3ECI/CD%3C/text%3E%3C/svg%3E" alt="CI/CD Pipeline">
+                    <h3>CI/CD Automation</h3>
+                    <p>Building GitHub Actions workflows for automated testing, planning, and deployment of infrastructure and applications.</p>
+                    <a href="#projects">LEARN MORE →</a>
+                </div>
+                <div class="work-card">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%231a2047' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' fill='%2300d4ff' font-size='16' font-weight='bold' text-anchor='middle' dominant-baseline='middle'%3EWeb Dev%3C/text%3E%3C/svg%3E" alt="Web Development">
+                    <h3>Full Stack Development</h3>
+                    <p>Creating responsive, performant web applications with modern JavaScript frameworks and cloud-native architectures.</p>
+                    <a href="#projects">LEARN MORE →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section id="projects" class="projects">
+        <div class="projects-container">
+            <h2 class="section-title">Featured Projects</h2>
             
-            <h3>Experience highlights:</h3>
-            <ul class="experience-list">
-                <li>Several years running AWS for regulated, high‑traffic environments.</li>
-                <li>Hands‑on with Terraform, GitLab CI, ECS/Kubernetes, observability, and incident response.</li>
-                <li>Comfortable owning infrastructure end‑to‑end: from VPCs and IAM to pipelines and monitoring.</li>
-            </ul>
-            <p>I enjoy working with small and mid‑size teams that need senior expertise on a flexible, part‑time basis.</p>
+            <div class="project-featured">
+                <div class="project-content">
+                    <h3>Portfolio Website</h3>
+                    <p>A modern static portfolio website hosted on AWS S3 with CloudFront CDN. Fully managed with Terraform and deployed via GitHub Actions CI/CD pipeline with automated plan and apply workflows.</p>
+                    <a href="https://github.com/constantinious/myportfoliio" class="project-link">View Project →</a>
+                </div>
+                <div class="project-image">
+                    <div class="image-placeholder-large">Portfolio</div>
+                </div>
+            </div>
+
+            <div class="project-featured project-featured-alt">
+                <div class="project-image">
+                    <div class="image-placeholder-large">Infrastructure</div>
+                </div>
+                <div class="project-content">
+                    <h3>Cloud Infrastructure Setup</h3>
+                    <p>Complete AWS infrastructure setup with Terraform including S3 buckets, CloudFront distribution, Route53 DNS, ACM SSL certificates, and security configurations. State management via S3 with encryption and logging.</p>
+                    <a href="#" class="project-link">View Project →</a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
-        <div class="container">
-            <h2>Get in touch</h2>
-            <p>Interested in working together or have a question?</p>
-            <div class="contact-box">
-                <p><strong>Email:</strong> <a href="mailto:Konstantinos.gkekas.1@gmail.com">Konstantinos.gkekas.1@gmail.com</a></p>
-                <p><strong>Subject suggestion:</strong> "AWS / Terraform help – [Your Company]"</p>
-                <p>I usually reply within 1–2 business days with a couple of time slots for a short intro call.</p>
+        <div class="contact-container">
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="contact-subtitle">I'm always open to new opportunities, collaborations, and interesting projects. Feel free to reach out!</p>
+            <a href="mailto:hello@example.com" class="cta-button">hello@example.com</a>
+            <div class="social-links">
+                <a href="https://github.com/constantinious" target="_blank">GitHub</a>
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank">Twitter</a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Konstantinos Gkekas. All rights reserved.</p>
-        </div>
+        <p>&copy; 2025 Konstantinos Gkekas. All rights reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
