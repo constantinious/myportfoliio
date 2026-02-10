@@ -48,12 +48,12 @@ jobs:
         working-directory: ./terraform
         id: tf_outputs
         run: |
-          s3_bucket=$(terraform output -raw s3_bucket_name)
-          cloudfront_domain=$(terraform output -raw cloudfront_domain_name)
-          route53_fqdn=$(terraform output -raw route53_record_fqdn)
-          echo "s3_bucket=$s3_bucket" >> $GITHUB_OUTPUT
-          echo "cloudfront_domain=$cloudfront_domain" >> $GITHUB_OUTPUT
-          echo "route53_fqdn=$route53_fqdn" >> $GITHUB_OUTPUT
+          s3_bucket=$(terraform output -raw s3_bucket_name 2>&1 | grep -v '^Debug')
+          cloudfront_domain=$(terraform output -raw cloudfront_domain_name 2>&1 | grep -v '^Debug')
+          route53_fqdn=$(terraform output -raw route53_record_fqdn 2>&1 | grep -v '^Debug')
+          echo "s3_bucket=$(echo "$s3_bucket" | tail -1)" >> $GITHUB_OUTPUT
+          echo "cloudfront_domain=$(echo "$cloudfront_domain" | tail -1)" >> $GITHUB_OUTPUT
+          echo "route53_fqdn=$(echo "$route53_fqdn" | tail -1)" >> $GITHUB_OUTPUT
 
       - name: Deploy Website Files to S3
         working-directory: ./
