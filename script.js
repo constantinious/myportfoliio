@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   animateParticles();
 
-  // ── Scroll-Reveal ───────────────────────
+  // ── Scroll-Reveal (with stagger support) ─
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -78,6 +78,81 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
 
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ── Typed Text Animation ────────────────
+  const titles = [
+    'Senior Cloud Operations Engineer',
+    'AWS Solutions Architect',
+    'Infrastructure Automation Specialist',
+    'DevOps Engineer',
+    'Kubernetes & Container Expert',
+  ];
+  const typedEl = document.getElementById('typed-text');
+  let titleIdx = 0, charIdx = 0, isDeleting = false;
+
+  function typeLoop() {
+    const current = titles[titleIdx];
+    if (!isDeleting) {
+      typedEl.textContent = current.substring(0, charIdx + 1);
+      charIdx++;
+      if (charIdx === current.length) {
+        isDeleting = true;
+        setTimeout(typeLoop, 2000);       // pause before deleting
+        return;
+      }
+      setTimeout(typeLoop, 70);           // typing speed
+    } else {
+      typedEl.textContent = current.substring(0, charIdx - 1);
+      charIdx--;
+      if (charIdx === 0) {
+        isDeleting = false;
+        titleIdx = (titleIdx + 1) % titles.length;
+        setTimeout(typeLoop, 400);        // pause before next word
+        return;
+      }
+      setTimeout(typeLoop, 35);           // deleting speed
+    }
+  }
+  typeLoop();
+
+  // ── Animated Counters ───────────────────
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = +el.getAttribute('data-target');
+        const duration = 1800;
+        const start = performance.now();
+
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);   // ease-out cubic
+          el.textContent = Math.floor(eased * target) + '+';
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+  // ── Back to Top Button ──────────────────
+  const backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   // ── Active Nav Highlighting ─────────────
   const sections = document.querySelectorAll('section[id]');
@@ -120,9 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (menuBtn) {
     menuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
-      menuIcon.setAttribute('d', mobileMenu.classList.contains('hidden')
-        ? 'M4 6h16M4 12h16M4 18h16'
-        : 'M6 18L18 6M6 6l12 12'
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      menuBtn.setAttribute('aria-expanded', isOpen);
+      menuIcon.setAttribute('d', isOpen
+        ? 'M6 18L18 6M6 6l12 12'
+        : 'M4 6h16M4 12h16M4 18h16'
       );
     });
 

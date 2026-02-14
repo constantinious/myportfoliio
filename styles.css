@@ -169,3 +169,27 @@
 @media (max-width: 640px) {
   .section-heading { font-size: 1.75rem; }
 }
+
+/* -- Typed cursor blink -- */
+.typed-cursor {
+  display: inline-block;
+  color: #a855f7;
+  font-weight: 300;
+  animation: blink 0.7s step-end infinite;
+  margin-left: 2px;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* -- Back to top button -- */
+#back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* -- Counter plus sign -- */
+.counter-plus::after {
+  content: '+';
+}
