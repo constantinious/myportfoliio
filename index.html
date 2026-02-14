@@ -13,8 +13,8 @@
         theme: {
           extend: {
             colors: {
-              dark:    { 900: '#0b0f1a', 800: '#111827', 700: '#1a2035' },
-              neon:    { DEFAULT: '#00d4ff', dim: '#007ea8' },
+              dark:    { 900: '#0c0a15', 800: '#13111c', 700: '#1a1528' },
+              neon:    { DEFAULT: '#a855f7', dim: '#7c3aed' },
             },
             fontFamily: { sans: ['Inter', 'Roboto', 'system-ui', 'sans-serif'] },
           }
@@ -27,6 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -70,18 +71,25 @@
 </nav>
 
 <!-- ════════ 1. HERO ════════ -->
-<section id="home" class="relative z-10 min-h-screen flex items-center justify-center text-center px-6 pt-24">
-  <div class="max-w-3xl reveal">
-    <p class="text-neon text-sm tracking-widest uppercase mb-4">Senior Cloud Operations Engineer</p>
-    <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight mb-6">
-      Konstantinos<br><span class="text-neon glow-text">Gkekas</span>
-    </h1>
-    <p class="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-10">
-      AWS &amp; Infrastructure Automation Specialist — building resilient, cost-efficient cloud platforms at scale.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="#experience" class="btn-primary">View My Work</a>
-      <a href="#contact"    class="btn-outline">Contact Me</a>
+<section id="home" class="relative z-10 min-h-screen flex items-center justify-center px-6 pt-24">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <!-- Text -->
+    <div class="text-center md:text-left reveal">
+      <p class="text-neon text-sm tracking-widest uppercase mb-4">Senior Cloud Operations Engineer</p>
+      <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight mb-6">
+        Konstantinos<br><span class="text-neon glow-text">Gkekas</span>
+      </h1>
+      <p class="text-gray-400 text-lg sm:text-xl max-w-2xl mb-10">
+        AWS &amp; Infrastructure Automation Specialist — building resilient, cost-efficient cloud platforms at scale.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+        <a href="#experience" class="btn-primary">View My Work</a>
+        <a href="#contact"    class="btn-outline">Contact Me</a>
+      </div>
+    </div>
+    <!-- Avatar -->
+    <div class="flex justify-center reveal">
+      <img src="avatar2.png" alt="Konstantinos Gkekas" class="avatar-hero">
     </div>
   </div>
 </section>
@@ -92,8 +100,14 @@
     <h2 class="section-heading reveal">About Me</h2>
 
     <div class="glass-card p-8 md:p-10 reveal">
+      <p class="text-gray-300 leading-relaxed mb-4">
+        Senior Cloud Operations Engineer at <span class="text-neon font-semibold">Mastercard</span> with a strong background in delivering and maintaining scalable, secure cloud infrastructure. I specialise in designing and implementing AWS-based solutions using Terraform, managed through GitLab CI/CD pipelines.
+      </p>
+      <p class="text-gray-300 leading-relaxed mb-4">
+        I work closely with internal teams and customers to provision and manage key infrastructure components including EC2, security groups, Route53, load balancers, KMS encryption, SSM parameters, and ECS clusters. As part of my responsibilities, I own IAM permissions management, ensuring secure and compliant access controls across environments.
+      </p>
       <p class="text-gray-300 leading-relaxed mb-6">
-        Senior Cloud Operations Engineer at <span class="text-neon font-semibold">Mastercard</span> with extensive experience in AWS and Infrastructure as Code. I specialise in building scalable, secure pipelines and observability automation. I bridge the gap between complex infrastructure needs and developer efficiency through collaborative, high-performance solutions.
+        Actively involved in monitoring and observability with SignalFx, I participate in a rotating on-call schedule to ensure infrastructure reliability and performance. Comfortable in Linux system administration, I'm experienced in managing S3 storage, troubleshooting infrastructure issues, and continuously improving DevOps practices.
       </p>
 
       <div class="flex flex-col md:flex-row md:items-start gap-8 mt-8">
@@ -130,7 +144,7 @@
           <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"/></svg>
         </div>
         <h3 class="text-lg font-semibold mb-3 text-white group-hover:text-neon transition">Cloud</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">AWS — EC2, EKS, RDS, S3, Lambda, VPC, CloudFront, Route 53</p>
+        <p class="text-gray-400 text-sm leading-relaxed">AWS — EC2, EKS, ECS, RDS, S3, Lambda, VPC, CloudFront, Route 53, KMS, Auto Scaling, Load Balancers</p>
       </div>
 
       <!-- Orchestration -->
@@ -139,7 +153,7 @@
           <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
         </div>
         <h3 class="text-lg font-semibold mb-3 text-white group-hover:text-neon transition">Orchestration</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Kubernetes, Karpenter, HPA, Helm, Docker</p>
+        <p class="text-gray-400 text-sm leading-relaxed">Kubernetes, Karpenter, HPA, Helm, Docker, VMware vSphere</p>
       </div>
 
       <!-- Automation -->
@@ -148,7 +162,7 @@
           <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.88-3.43a.562.562 0 010-.96l5.88-3.43a.563.563 0 01.84.49v6.87c0 .45-.49.72-.84.49zM20.25 7.5l-9 5.25v9"/><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.5h16.5M3.75 4.5v15h16.5v-15"/></svg>
         </div>
         <h3 class="text-lg font-semibold mb-3 text-white group-hover:text-neon transition">Automation</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Terraform, GitLab CI/CD, GitHub Actions, CircleCI</p>
+        <p class="text-gray-400 text-sm leading-relaxed">Terraform, GitLab CI/CD, GitHub Actions, CircleCI, Jenkins, Ansible, Puppet</p>
       </div>
 
       <!-- Observability -->
@@ -157,7 +171,34 @@
           <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
         </div>
         <h3 class="text-lg font-semibold mb-3 text-white group-hover:text-neon transition">Observability</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Datadog, SignalFx, Prometheus, Grafana</p>
+        <p class="text-gray-400 text-sm leading-relaxed">Datadog, SignalFx, Prometheus, Grafana, Icinga, Commvault</p>
+      </div>
+
+      <!-- Networking -->
+      <div class="glass-card p-6 text-center group reveal">
+        <div class="icon-glow mx-auto mb-5">
+          <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5a17.92 17.92 0 01-8.716-2.247m0 0A8.966 8.966 0 013 12c0-1.264.26-2.467.732-3.558"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold mb-3 text-white group-hover:text-neon transition">Networking</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">TCP/IP, DNS, Firewalls, LAN/WAN, Traceroute, Wireshark, cURL, Cloudflare</p>
+      </div>
+
+      <!-- Databases -->
+      <div class="glass-card p-6 text-center group reveal">
+        <div class="icon-glow mx-auto mb-5">
+          <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 3.75c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold mb-3 text-white group-hover:text-neon transition">Databases</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">PostgreSQL, MongoDB Atlas, ElasticSearch, RabbitMQ</p>
+      </div>
+
+      <!-- Systems Admin -->
+      <div class="glass-card p-6 text-center group reveal">
+        <div class="icon-glow mx-auto mb-5">
+          <svg class="w-8 h-8 text-neon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"/></svg>
+        </div>
+        <h3 class="text-lg font-semibold mb-3 text-white group-hover:text-neon transition">Systems Admin</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Linux (SUSE, RedHat), Windows Server, NetApp Storage, Consul, Vault</p>
       </div>
     </div>
   </div>
@@ -174,32 +215,71 @@
       <!-- Mastercard -->
       <div class="pl-10 relative reveal">
         <span class="timeline-dot"></span>
-        <p class="text-neon text-xs font-semibold uppercase tracking-widest mb-1">2025 – Present</p>
+        <p class="text-neon text-xs font-semibold uppercase tracking-widest mb-1">Feb 2025 – Present</p>
         <h3 class="text-xl font-bold text-white mb-2">Senior Cloud Operations Engineer — <span class="text-neon">Mastercard</span></h3>
-        <p class="text-gray-400 leading-relaxed">
-          Managing secure AWS infrastructure with Terraform, IAM governance, and secrets management using Vault &amp; Consul. Driving automation across environments with robust CI/CD and compliance-first architecture.
-        </p>
-      </div>
-
-      <!-- Make -->
-      <div class="pl-10 relative reveal">
-        <span class="timeline-dot"></span>
-        <p class="text-neon text-xs font-semibold uppercase tracking-widest mb-1">2022 – 2025</p>
-        <h3 class="text-xl font-bold text-white mb-2">Infrastructure &amp; DevOps Engineer — <span class="text-neon">Make</span></h3>
         <p class="text-gray-400 leading-relaxed mb-4">
-          Infrastructure &amp; DevOps Engineer managing high-traffic Linux/Unix environments on AWS.
+          Designing and implementing AWS-based solutions using Terraform, managed through GitLab CI/CD pipelines. Provisioning and managing EC2, security groups, Route53, load balancers, KMS encryption, SSM parameters, and ECS clusters.
         </p>
-
         <div class="space-y-4">
           <div class="glass-card p-5">
-            <h4 class="text-sm font-semibold text-neon mb-1">⚡ Project Highlight</h4>
+            <h4 class="text-sm font-semibold text-neon mb-1">🔐 IAM &amp; Secrets Management</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">Owning IAM permissions management across environments, ensuring secure and compliant access controls. Supporting configuration management with Puppet, Consul, and Vault for service discovery and secrets management.</p>
+          </div>
+          <div class="glass-card p-5">
+            <h4 class="text-sm font-semibold text-neon mb-1">📈 Observability &amp; On-Call</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">Actively monitoring with SignalFx and participating in rotating on-call schedule to ensure infrastructure reliability and performance across production systems.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Make – Infrastructure Engineer -->
+      <div class="pl-10 relative reveal">
+        <span class="timeline-dot"></span>
+        <p class="text-neon text-xs font-semibold uppercase tracking-widest mb-1">Mar 2023 – Feb 2025</p>
+        <h3 class="text-xl font-bold text-white mb-2">Infrastructure Engineer — <span class="text-neon">Make</span></h3>
+        <p class="text-gray-400 leading-relaxed mb-4">
+          Hands-on AWS infrastructure management (Auto Scaling, ELB, EC2, RDS, EFS, Route53, VPC, Lambda). Monitoring via Datadog with alerting, logging, and dashboards. Managing Kubernetes clusters with Docker and Helm for scalable deployments. Daily interaction with development teams to support infrastructure needs.
+        </p>
+        <div class="space-y-4">
+          <div class="glass-card p-5">
+            <h4 class="text-sm font-semibold text-neon mb-1">⚡ EKS Autoscaling</h4>
             <p class="text-gray-400 text-sm leading-relaxed">Implemented EKS autoscaling using Datadog custom metrics and Karpenter, enabling real-time capacity adjustments and reducing provisioning latency.</p>
           </div>
           <div class="glass-card p-5">
-            <h4 class="text-sm font-semibold text-neon mb-1">💰 Project Highlight</h4>
-            <p class="text-gray-400 text-sm leading-relaxed">Led AWS Cost Optimisation by migrating workloads to Graviton instances and gp3 volumes, significantly reducing infrastructure overhead while maintaining performance.</p>
+            <h4 class="text-sm font-semibold text-neon mb-1">💰 AWS Cost Optimisation</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">Led migration to Graviton instances and gp3 volumes, significantly reducing infrastructure overhead while maintaining performance across high-traffic workloads.</p>
           </div>
         </div>
+      </div>
+
+      <!-- Make – DevOps Engineer -->
+      <div class="pl-10 relative reveal">
+        <span class="timeline-dot"></span>
+        <p class="text-neon text-xs font-semibold uppercase tracking-widest mb-1">Jan 2022 – Feb 2025</p>
+        <h3 class="text-xl font-bold text-white mb-2">DevOps Engineer — <span class="text-neon">Make</span></h3>
+        <p class="text-gray-400 leading-relaxed">
+          Collaborating daily with development teams. Working across AWS, Kubernetes, Docker, ElasticSearch, RabbitMQ, PostgreSQL, Datadog, and Cloudflare. Pro-actively monitoring cloud infrastructure, managing Linux/Unix systems, and building CI/CD pipelines with Git, GitHub, and CircleCI. Application packaging and deployment via Helm.
+        </p>
+      </div>
+
+      <!-- NTT – Cloud Engineer -->
+      <div class="pl-10 relative reveal">
+        <span class="timeline-dot"></span>
+        <p class="text-neon text-xs font-semibold uppercase tracking-widest mb-1">Feb 2021 – Dec 2021</p>
+        <h3 class="text-xl font-bold text-white mb-2">Cloud Engineer — <span class="text-neon">NTT Ltd.</span></h3>
+        <p class="text-gray-400 leading-relaxed">
+          Providing customer support for cloud infrastructure. Linux administration (SUSE, RedHat), Windows Server management, NetApp storage, automation with Jenkins, Ansible &amp; AWX, backup with Commvault &amp; SnapManager, monitoring with Grafana &amp; Icinga, VMware vSphere, and job management with BMC Control-M.
+        </p>
+      </div>
+
+      <!-- NTT – MS Services Engineer L1 -->
+      <div class="pl-10 relative reveal">
+        <span class="timeline-dot"></span>
+        <p class="text-neon text-xs font-semibold uppercase tracking-widest mb-1">Sep 2019 – Feb 2021</p>
+        <h3 class="text-xl font-bold text-white mb-2">MS Services Engineer L1 — <span class="text-neon">NTT Ltd.</span></h3>
+        <p class="text-gray-400 leading-relaxed">
+          First-level Microsoft Azure administration. Provisioning cloud servers, configuring backup agents (Windows/Linux/Oracle/SAP HANA) with Commvault, managing import/export of OVF images, and performing restore tasks across environments. Troubleshooting backup issues on Windows, SUSE, and Oracle Linux systems.
+        </p>
       </div>
     </div>
   </div>
