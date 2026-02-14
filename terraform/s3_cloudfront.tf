@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "website" {
   }
 }
 
-# Block public access settings (we'll use CloudFront OAI instead)
+# Block public access settings (using CloudFront OAC for access)
 resource "aws_s3_bucket_public_access_block" "website" {
   bucket = aws_s3_bucket.website.id
 
@@ -55,18 +55,22 @@ resource "aws_s3_bucket_website_configuration" "website" {
   }
 
   error_document {
-    key = "index.html"
+    key = "404.html"
   }
 
   depends_on = [aws_s3_bucket_public_access_block.website]
 }
 
-# CloudFront Origin Access Identity
-resource "aws_cloudfront_origin_access_identity" "oai" {
-  comment = "OAI for portfolio website"
+# CloudFront Origin Access Control (recommended over legacy OAI)
+resource "aws_cloudfront_origin_access_control" "website" {
+  name                              = "portfolio-oac"
+  description                       = "OAC for portfolio website S3 origin"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }
 
-# Bucket policy to allow CloudFront access
+# Bucket policy to allow CloudFront OAC access
 resource "aws_s3_bucket_policy" "website" {
   bucket = aws_s3_bucket.website.id
 
@@ -74,13 +78,18 @@ resource "aws_s3_bucket_policy" "website" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid    = "CloudFrontAccess"
+        Sid    = "AllowCloudFrontServicePrincipal"
         Effect = "Allow"
         Principal = {
-          AWS = aws_cloudfront_origin_access_identity.oai.iam_arn
+          Service = "cloudfront.amazonaws.com"
         }
         Action   = "s3:GetObject"
         Resource = "${aws_s3_bucket.website.arn}/*"
+        Condition = {
+          StringEquals = {
+            "AWS:SourceArn" = aws_cloudfront_distribution.website[0].arn
+          }
+        }
       }
     ]
   })
@@ -93,23 +102,28 @@ resource "aws_cloudfront_distribution" "website" {
   aliases = var.domain_name != "" ? [var.domain_name] : []
 
   origin {
-    domain_name = aws_s3_bucket.website.bucket_regional_domain_name
-    origin_id   = "S3Origin"
-
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.oai.cloudfront_access_identity_path
-    }
+    domain_name              = aws_s3_bucket.website.bucket_regional_domain_name
+    origin_id                = "S3Origin"
+    origin_access_control_id = aws_cloudfront_origin_access_control.website.id
   }
 
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
 
-  # Custom error responses for SPA
+  # Custom error page for 404s
   custom_error_response {
-    error_code         = 404
-    response_code      = 200
-    response_page_path = "/index.html"
+    error_code            = 404
+    response_code         = 404
+    response_page_path    = "/404.html"
+    error_caching_min_ttl = 60
+  }
+
+  custom_error_response {
+    error_code            = 403
+    response_code         = 404
+    response_page_path    = "/404.html"
+    error_caching_min_ttl = 60
   }
 
   # Compression for better performance
@@ -138,7 +152,7 @@ resource "aws_cloudfront_distribution" "website" {
     viewer_protocol_policy = "redirect-to-https"
   }
 
-  # Cache policy for CSS/JS (longer TTL)
+  # Cache policy for CSS (longer TTL)
   ordered_cache_behavior {
     path_pattern     = "*.css"
     allowed_methods  = ["GET", "HEAD"]
@@ -148,7 +162,20 @@ resource "aws_cloudfront_distribution" "website" {
 
     cache_policy_id = data.aws_cloudfront_cache_policy.caching_optimized.id
 
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
+  }
+
+  # Cache policy for JS (longer TTL)
+  ordered_cache_behavior {
+    path_pattern     = "*.js"
+    allowed_methods  = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "S3Origin"
+    compress         = true
+
+    cache_policy_id = data.aws_cloudfront_cache_policy.caching_optimized.id
+
+    viewer_protocol_policy = "redirect-to-https"
   }
 
   restrictions {
@@ -176,7 +203,7 @@ resource "aws_s3_bucket_cors_configuration" "website" {
   cors_rule {
     allowed_headers = ["*"]
     allowed_methods = ["GET", "HEAD"]
-    allowed_origins = var.enable_cloudfront ? ["https://${aws_cloudfront_distribution.website[0].domain_name}"] : ["*"]
+    allowed_origins = var.enable_cloudfront && var.domain_name != "" ? ["https://${var.domain_name}", "https://${aws_cloudfront_distribution.website[0].domain_name}"] : ["*"]
     max_age_seconds = 3000
   }
 }
