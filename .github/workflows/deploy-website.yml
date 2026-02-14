@@ -12,6 +12,7 @@ on:
       - '*.jpg'
       - '*.svg'
       - '*.ico'
+      - '*.pdf'
 
 permissions:
   contents: read
