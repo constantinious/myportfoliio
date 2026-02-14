@@ -1,18 +1,25 @@
-name: Validate & Deploy Website
+name: Deploy Website
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'index.html'
-      - 'styles.css'
-      - '!terraform/**'
+      - '*.html'
+      - '*.css'
+      - '*.js'
+      - '*.png'
+      - '*.jpg'
+      - '*.svg'
+      - '*.ico'
+
+permissions:
+  contents: read
 
 jobs:
   deploy-website:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,15 +31,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Get S3 Bucket Name
-        id: bucket
-        run: |
-          BUCKET_NAME="konstantinos-gkekas-portfolio"
-          echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
-
       - name: Deploy to S3
         run: |
-          aws s3 sync . s3://${{ steps.bucket.outputs.bucket_name }}/ \
+          aws s3 sync . s3://konstantinos-gkekas-portfolio/ \
             --exclude "terraform/*" \
             --exclude ".git/*" \
             --exclude ".github/*" \
@@ -43,24 +44,7 @@ jobs:
             --delete
 
       - name: Invalidate CloudFront Cache
-        env:
-          CLOUDFRONT_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
-          if [ -z "$CLOUDFRONT_ID" ]; then
-            echo "CloudFront ID not set. Skipping cache invalidation."
-          else
-            aws cloudfront create-invalidation \
-              --distribution-id $CLOUDFRONT_ID \
-              --paths "/*"
-          fi
-
-      - name: Create Deployment Notification
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.repos.createCommitComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: context.sha,
-              body: '✅ Website files deployed to S3 and CloudFront cache invalidated!'
-            });
+          aws cloudfront create-invalidation \
+            --distribution-id EKW3EKWU9CU7S \
+            --paths "/*"

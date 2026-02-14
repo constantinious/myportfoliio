@@ -18,15 +18,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AWS_REGION: us-east-1
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+          terraform_wrapper: false
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -48,8 +49,10 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
+        id: plan
         working-directory: ./terraform
-        run: terraform plan -var="domain_name=portfolio.condevelop.net" -out=tfplan
+        run: |
+          terraform plan -var="domain_name=portfolio.condevelop.net" -no-color -out=tfplan 2>&1 | tee /tmp/plan_output.txt
 
       - name: Upload Plan
         uses: actions/upload-artifact@v4
@@ -63,17 +66,17 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const planOutput = require('child_process').execSync('cd terraform && terraform plan -var="domain_name=portfolio.condevelop.net" -no-color', { encoding: 'utf-8' });
-            
-            const comment = `## Terraform Plan
-            
+            const planOutput = fs.readFileSync('/tmp/plan_output.txt', 'utf8');
+
+            const body = `## 📋 Terraform Plan
+
             \`\`\`
-            ${planOutput}
+            ${planOutput.substring(0, 60000)}
             \`\`\``;
-            
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: comment
+              body: body
             });

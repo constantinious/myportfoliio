@@ -4,21 +4,27 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'terraform/**'
+
+permissions:
+  contents: read
 
 jobs:
   terraform-apply:
     runs-on: ubuntu-latest
     env:
       AWS_REGION: us-east-1
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: latest
+          terraform_wrapper: false
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -37,28 +43,15 @@ jobs:
 
       - name: Terraform Plan
         working-directory: ./terraform
-        id: plan
         run: terraform plan -var="domain_name=portfolio.condevelop.net" -no-color -out=tfplan
 
       - name: Terraform Apply
         working-directory: ./terraform
         run: terraform apply -auto-approve tfplan
 
-      - name: Get Outputs
-        working-directory: ./terraform
-        id: tf_outputs
-        run: |
-          s3_bucket=$(terraform output -raw s3_bucket_name 2>&1 | grep -v '^Debug')
-          cloudfront_domain=$(terraform output -raw cloudfront_domain_name 2>&1 | grep -v '^Debug')
-          route53_fqdn=$(terraform output -raw route53_record_fqdn 2>&1 | grep -v '^Debug')
-          echo "s3_bucket=$(echo "$s3_bucket" | tail -1)" >> $GITHUB_OUTPUT
-          echo "cloudfront_domain=$(echo "$cloudfront_domain" | tail -1)" >> $GITHUB_OUTPUT
-          echo "route53_fqdn=$(echo "$route53_fqdn" | tail -1)" >> $GITHUB_OUTPUT
-
       - name: Deploy Website Files to S3
-        working-directory: ./
         run: |
-          aws s3 sync . s3://${{ steps.tf_outputs.outputs.s3_bucket }}/ \
+          aws s3 sync . s3://konstantinos-gkekas-portfolio/ \
             --exclude "terraform/*" \
             --exclude ".git/*" \
             --exclude ".github/*" \
@@ -69,37 +62,25 @@ jobs:
             --delete
 
       - name: Invalidate CloudFront Cache
-        env:
-          CLOUDFRONT_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        working-directory: ./terraform
         run: |
-          if [ -z "$CLOUDFRONT_ID" ]; then
-            echo "CloudFront ID not set. Skipping cache invalidation."
-          else
+          CLOUDFRONT_ID=$(terraform output -raw cloudfront_distribution_id)
+          if [ -n "$CLOUDFRONT_ID" ] && [ "$CLOUDFRONT_ID" != "null" ] && [ "$CLOUDFRONT_ID" != "" ]; then
             aws cloudfront create-invalidation \
-              --distribution-id $CLOUDFRONT_ID \
+              --distribution-id "$CLOUDFRONT_ID" \
               --paths "/*"
+          else
+            echo "CloudFront distribution ID not found. Skipping invalidation."
           fi
 
       - name: Create Deployment Comment
+        if: success()
         uses: actions/github-script@v7
         with:
           script: |
-            const s3_bucket = '${{ steps.tf_outputs.outputs.s3_bucket }}';
-            const cloudfront_domain = '${{ steps.tf_outputs.outputs.cloudfront_domain }}';
-            const route53_fqdn = '${{ steps.tf_outputs.outputs.route53_fqdn }}';
-            
-            const comment = `## ✅ Deployment Successful
-            
-            ### Infrastructure Details:
-            - **S3 Bucket**: \`${s3_bucket}\`
-            - **CloudFront Domain**: https://${cloudfront_domain}
-            - **Custom Domain**: https://${route53_fqdn}
-            
-            Website files have been deployed and cache invalidated.`;
-            
             github.rest.repos.createCommitComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               commit_sha: context.sha,
-              body: comment
+              body: '✅ Terraform applied and website deployed successfully!'
             });
