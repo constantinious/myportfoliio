@@ -4,6 +4,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // ── Particle Canvas ─────────────────────
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
@@ -34,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     draw() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(168, 85, 247, 0.35)';
+      ctx.fillStyle = 'rgba(52, 211, 153, 0.35)';
       ctx.fill();
     }
   }
@@ -52,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.beginPath();
           ctx.moveTo(dots[i].x, dots[i].y);
           ctx.lineTo(dots[j].x, dots[j].y);
-          ctx.strokeStyle = 'rgba(168, 85, 247,' + (0.08 * (1 - dist / 140)) + ')';
+          ctx.strokeStyle = 'rgba(52, 211, 153,' + (0.08 * (1 - dist / 140)) + ')';
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
@@ -66,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     connectDots();
     requestAnimationFrame(animateParticles);
   }
-  animateParticles();
+  if (!reduceMotion) animateParticles();
 
   // ── Scroll-Reveal (with stagger support) ─
   const revealObserver = new IntersectionObserver((entries) => {
@@ -113,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(typeLoop, 35);           // deleting speed
     }
   }
-  typeLoop();
+  if (reduceMotion) { typedEl.textContent = titles[0]; } else { typeLoop(); }
 
   // ── Animated Counters ───────────────────
   const counterObserver = new IntersectionObserver((entries) => {
@@ -121,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (entry.isIntersecting) {
         const el = entry.target;
         const target = +el.getAttribute('data-target');
+        if (reduceMotion) { el.textContent = target + '+'; counterObserver.unobserve(el); return; }
         const duration = 1800;
         const start = performance.now();
 
@@ -180,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       navbar.classList.add('shadow-lg');
-      navbar.style.background = 'rgba(11, 15, 26, 0.95)';
+      navbar.style.background = 'rgba(11, 15, 14, 0.95)';
     } else {
       navbar.classList.remove('shadow-lg');
       navbar.style.background = '';
